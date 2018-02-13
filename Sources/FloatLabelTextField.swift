@@ -57,16 +57,16 @@ import UIKit
         }
     }
     
-    var titleFont: UIFont = .systemFont(ofSize: 12.0) {
+    public var titleFont: UIFont = .systemFont(ofSize: 12.0) {
         didSet {
             title.font = titleFont
             title.sizeToFit()
         }
     }
     
-    @IBInspectable var hintYPadding:CGFloat = 0.0
+    @IBInspectable public var hintYPadding:CGFloat = 0.0
     
-    @IBInspectable var titleYPadding:CGFloat = 0.0 {
+    @IBInspectable public var titleYPadding:CGFloat = 0.0 {
         didSet {
             var r = title.frame
             r.origin.y = titleYPadding
@@ -74,7 +74,7 @@ import UIKit
         }
     }
     
-    @IBInspectable var titleTextColour:UIColor = .gray {
+    @IBInspectable public var titleTextColour:UIColor = .gray {
         didSet {
             if !isFirstResponder {
                 title.textColor = titleTextColour

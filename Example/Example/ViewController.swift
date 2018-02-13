@@ -5,9 +5,9 @@
 //  Copyright © 2016 Xmartlabs SRL. All rights reserved.
 //
 
+import UIKit
 import Eureka
 import FloatLabelRow
-import UIKit
 
 //MARK: HomeViewController
 class HomeViewController : FormViewController {
@@ -48,12 +48,14 @@ class RowsExampleViewController: FormViewController {
                     $0.title = "Int field"
                     $0.value = 2017
                 }
+
                 <<< DecimalFloatLabelRow() {
                     $0.title = "Decimal field"
                     $0.value = 2017
                     $0.formatter = DecimalFormatter()
                     $0.useFormatterDuringInput = true
                 }
+
                 <<< URLFloatLabelRow() {
                     $0.title = "URL field"
                     $0.value = URL(string: "http://xmartlabs.com")
@@ -148,7 +150,7 @@ class FormatterExample : FormViewController {
         }
         
         func getNewPosition(forPosition position: UITextPosition, inTextInput textInput: UITextInput, oldValue: String?, newValue: String?) -> UITextPosition {
-            return textInput.position(from: position, offset:((newValue?.characters.count ?? 0) - (oldValue?.characters.count ?? 0))) ?? position
+            return textInput.position(from: position, offset:((newValue?.count ?? 0) - (oldValue?.count ?? 0))) ?? position
         }
         
     }
