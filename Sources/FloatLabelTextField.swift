@@ -82,7 +82,7 @@ import UIKit
         }
     }
     
-    @IBInspectable var titleActiveTextColour:UIColor! {
+    @IBInspectable public var titleActiveTextColour:UIColor! {
         didSet {
             if isFirstResponder {
                 title.textColor = titleActiveTextColour
