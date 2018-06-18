@@ -7,14 +7,14 @@
 
 import UIKit
 import Eureka
-import FloatLabelRow
 
-//MARK: HomeViewController
-class HomeViewController : FormViewController {
-    
+
+// MARK: HomeViewController
+class HomeViewController: FormViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         form +++
             Section() { section in
                 let header = HeaderFooterView<UIView>(.nibFile(name: "Header", bundle: Bundle.main))
@@ -29,15 +29,15 @@ class HomeViewController : FormViewController {
                 row.presentationMode = .segueName(segueName: "FormattersControllerSegue", onDismiss: nil)
             }
     }
-    
+
 }
 
 // MARK: Class RowsExampleViewController - Default provided FieldRow types
 class RowsExampleViewController: FormViewController {
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         form +++
             Section(header: "Field Row Label examples", footer: "Field rows provided by default")
                 <<< TextFloatLabelRow() {
@@ -90,15 +90,15 @@ class RowsExampleViewController: FormViewController {
                     $0.value = "90210"
                 }
     }
-    
+
 }
 
-//MARK: Class FormatterExample - Native and Custom formatters
-class FormatterExample : FormViewController {
-    
+// MARK: Class FormatterExample - Native and Custom formatters
+class FormatterExample: FormViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
-            
+
         form +++
             Section(header: "Number formatters", footer: "Native formatters")
                 <<< DecimalFloatLabelRow() {
@@ -128,7 +128,7 @@ class FormatterExample : FormViewController {
                     $0.value = 1000
                     $0.formatter = MassFormatter()
                 }
-            
+
             +++ Section(header: "Custom formatter", footer: "Custom formatter: CurrencyFormatter")
                 <<< DecimalFloatLabelRow() {
                     $0.title = "Currency style"
@@ -141,18 +141,23 @@ class FormatterExample : FormViewController {
                 }
     }
 
-    class CurrencyFormatter : NumberFormatter, FormatterProtocol {
-        
-        override func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?, for string: String, range rangep: UnsafeMutablePointer<NSRange>?) throws {
+    class CurrencyFormatter: NumberFormatter, FormatterProtocol {
+
+        override func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?,
+                                     for string: String,
+                                     range rangep: UnsafeMutablePointer<NSRange>?) throws {
             guard obj != nil else { return }
             let str = string.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: "")
             obj?.pointee = NSNumber(value: (Double(str) ?? 0.0)/Double(pow(10.0, Double(minimumFractionDigits))))
         }
-        
-        func getNewPosition(forPosition position: UITextPosition, inTextInput textInput: UITextInput, oldValue: String?, newValue: String?) -> UITextPosition {
-            return textInput.position(from: position, offset:((newValue?.count ?? 0) - (oldValue?.count ?? 0))) ?? position
+
+        func getNewPosition(forPosition position: UITextPosition,
+                            inTextInput textInput: UITextInput,
+                            oldValue: String?,
+                            newValue: String?) -> UITextPosition {
+            return textInput.position(from: position, offset: ((newValue?.count ?? 0) - (oldValue?.count ?? 0))) ?? position
         }
-        
+
     }
 
 }
