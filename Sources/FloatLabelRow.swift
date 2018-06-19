@@ -53,12 +53,18 @@ open class _FloatLabelCell<T>: Cell<T>, UITextFieldDelegate, TextFieldCell where
     
     open override func setup() {
         super.setup()
+
         height = { 55 }
         selectionStyle = .none
         contentView.addSubview(floatLabelTextField)
+
         floatLabelTextField.delegate = self
         floatLabelTextField.addTarget(self, action: #selector(_FloatLabelCell.textFieldDidChange(_:)), for: .editingChanged)
         contentView.addConstraints(layoutConstraints())
+
+        floatLabelTextField.isEnabled = !row.isDisabled
+        floatLabelTextField.titleTextColour = .lightGray
+        floatLabelTextField.alpha = row.isDisabled ? 0.6 : 1
     }
     
     open override func update() {
@@ -68,9 +74,6 @@ open class _FloatLabelCell<T>: Cell<T>, UITextFieldDelegate, TextFieldCell where
         detailTextLabel?.text = nil
         floatLabelTextField.attributedPlaceholder = NSAttributedString(string: row.title ?? "", attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray])
         floatLabelTextField.text =  row.displayValueFor?(row.value)
-        floatLabelTextField.isEnabled = !row.isDisabled
-        floatLabelTextField.titleTextColour = .lightGray
-        floatLabelTextField.alpha = row.isDisabled ? 0.6 : 1
     }
     
     open override func cellCanBecomeFirstResponder() -> Bool {

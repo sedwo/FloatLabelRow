@@ -48,14 +48,12 @@ class RowsExampleViewController: FormViewController {
                     $0.title = "Int field"
                     $0.value = 2017
                 }
-
                 <<< DecimalFloatLabelRow() {
                     $0.title = "Decimal field"
                     $0.value = 2017
                     $0.formatter = DecimalFormatter()
                     $0.useFormatterDuringInput = true
                 }
-
                 <<< URLFloatLabelRow() {
                     $0.title = "URL field"
                     $0.value = URL(string: "http://xmartlabs.com")
@@ -89,6 +87,14 @@ class RowsExampleViewController: FormViewController {
                     $0.title = "Zip code field"
                     $0.value = "90210"
                 }
+                <<< TextFloatLabelRow() { row in    // Fake a simple push row, but with a floating label.
+                    row.title = "my Label"
+                    row.value = "my Title"
+                    }.cellSetup { (cell, row) in
+                        cell.floatLabelTextField.titleTextColour = UIColor.red
+                        cell.accessoryType = .disclosureIndicator
+                        row.cell.textField.isEnabled = false
+                    }
     }
 
 }
